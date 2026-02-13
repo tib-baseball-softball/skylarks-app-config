@@ -3,11 +3,9 @@
       <main>
         <h1>Create new Configuration</h1>
         <form action="/configs/create" method="POST">
-          <label>
-            Description
-            <input type="text" name="description">
-          </label>
-          <button type="submit" class="btn primary">Submit</input>
+          <label for="input-description">Description</label>
+          <input id="input-description" type="text" name="description">
+          <button type="submit" class="btn primary">Submit</button>
         </form>
       </main>
     #endexport
