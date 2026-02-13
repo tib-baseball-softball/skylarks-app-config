@@ -10,7 +10,7 @@ final class Configuration: Model, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
 
-    @Field(key: "title")
+    @Field(key: "description")
     var description: String
 
     init() { }

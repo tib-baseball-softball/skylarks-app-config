@@ -1,0 +1,12 @@
+#extend("layout"):
+    #export("body"):
+      <main>
+        <ul>
+          #for(config in configs):
+              <li>#(config.description)</li>
+          #endfor
+        </ul>
+        <a href="/configs/form">Create new</a>
+      </main>
+    #endexport
+#endextend
