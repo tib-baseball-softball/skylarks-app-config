@@ -11,6 +11,10 @@ struct ConfigurationController: RouteCollection {
         configs.group(":configurationID") { config in
             config.delete(use: self.delete)
         }
+
+        let api = routes.grouped("api")
+
+        api.get("configs", use: self.apiList)
     }
 
     @Sendable
@@ -28,6 +32,11 @@ struct ConfigurationController: RouteCollection {
                 title: "Configurations List",
                 configs: configs
             ))
+    }
+
+    @Sendable
+    func apiList(req: Request) async throws -> [ConfigurationDTO] {
+        return try await Configuration.query(on: req.db).all().map { $0.toDTO() }
     }
 
     @Sendable
