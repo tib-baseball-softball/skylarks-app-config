@@ -7,7 +7,7 @@ struct ConfigurationController: RouteCollection {
 
         todos.get(use: self.index)
         todos.post(use: self.create)
-        todos.group(":todoID") { todo in
+        todos.group(":configurationID") { todo in
             todo.delete(use: self.delete)
         }
     }
