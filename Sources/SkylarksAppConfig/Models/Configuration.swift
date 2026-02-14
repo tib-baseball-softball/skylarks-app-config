@@ -10,13 +10,13 @@ final class Configuration: Model, @unchecked Sendable {
 
     @ID(key: .id)
     var id: UUID?
-    
+
     @Field(key: "updated_at")
     var updatedAt: Date
-    
+
     @Field(key: "name")
     var name: String
-    
+
     @Enum(key: "context")
     var applicationContext: ApplicationContext
 
@@ -31,13 +31,17 @@ final class Configuration: Model, @unchecked Sendable {
 
     @Field(key: "dp_url")
     var dpURL: String
-    
+
     @Siblings(through: ConfigurationFeatureFlag.self, from: \.$config, to: \.$flag)
     var featureFlags: [FeatureFlag]
 
     init() {}
 
-    init(id: UUID? = nil, name: String, context: ApplicationContext, updatedAt: Date, description: String, bsmURL: String, cmsURL: String, dpURL: String, featureFlags: [FeatureFlag]) {
+    init(
+        id: UUID? = nil, name: String, context: ApplicationContext, updatedAt: Date,
+        description: String, bsmURL: String, cmsURL: String, dpURL: String,
+        featureFlags: [FeatureFlag]
+    ) {
         self.id = id
         self.name = name
         self.applicationContext = context
@@ -52,6 +56,9 @@ final class Configuration: Model, @unchecked Sendable {
     func toDTO() -> ConfigurationDTO {
         .init(
             id: self.id,
+            updatedAt: self.updatedAt,
+            name: self.name,
+            applicationContext: self.applicationContext,
             description: self.$description.wrappedValue,
             apiURLS: ConfigurationDTO.APIUrls(
                 bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL)
