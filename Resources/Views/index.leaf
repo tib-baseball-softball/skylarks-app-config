@@ -1,7 +1,6 @@
 #extend("layout"):
-    #export("body"):
-      <main>
-        <p>Main Index View</p>
-      </main>
+    #export("main"):
+        <h1>Dashboard</h1>
+        
     #endexport
 #endextend

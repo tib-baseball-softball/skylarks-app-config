@@ -1,0 +1,7 @@
+<header class="main-page-header">
+  <a href="/" title="to root page">
+    <img src="/assets/icon_dp.svg" width="60" alt="Berlin Skylarks Logo" />
+  </a>
+  
+  <h3 class="h4">Skylarks App Config Provider</h3>
+</header>

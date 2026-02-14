@@ -1,0 +1,28 @@
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  @media (min-width: 32rem) {
+    grid-template-columns: 1fr 4fr;
+  }
+}
+
+main {
+  padding-inline: 2rem;
+  
+  @media (min-width: 32rem) {
+  padding-inline: 3rem;
+    }
+}
+
+.main-page-header {
+  padding-inline: 1rem ;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  
+  .h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

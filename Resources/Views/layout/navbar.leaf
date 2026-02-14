@@ -1,0 +1,52 @@
+<aside class="main-navbar">
+  <nav>
+    <ul class="nav-list">
+      <li>
+        <a class="nav-link" href="/">Dashboard</a>
+      </li>
+
+      <li>
+        <a class="nav-link" href="/configs">Configurations</a>
+      </li>
+
+      <li>
+        <a class="nav-link" href="/logs">Logs</a>
+      </li>
+
+      <hr />
+
+      <li>
+        <a
+          class="nav-link"
+          href="https://git.berlinskylarks.de/tib-baseball/skylarks-app-config"
+          target="_blank"
+          >Git Repository</a
+        >
+      </li>
+
+      <li>
+        <a class="nav-link" href="https://www.tib-baseball.de/" target="_blank"
+          >CMS Website</a
+        >
+      </li>
+
+      <li>
+        <a
+          class="nav-link"
+          href="https://app.berlinskylarks.de/"
+          target="_blank"
+          >Diamond Planner</a
+        >
+      </li>
+
+      <li>
+        <a
+          class="nav-link"
+          href="https://play.google.com/console/u/0/developers"
+          target="_blank"
+          >Play Console</a
+        >
+      </li>
+    </ul>
+  </nav>
+</aside>

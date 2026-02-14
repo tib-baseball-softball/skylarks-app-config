@@ -8,15 +8,25 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css"
     />
+    <link rel="stylesheet" href="/css/main.css" />
 
     <title>#(title)</title>
   </head>
 
   <body>
-    #import("body")
+    #extend("layout/header")
+
+    <hr />
+
+    <div class="nav-grid">
+      #extend("layout/navbar")
+      <main>
+        #import("main")
+      </main>
+    </div>
   </body>
-  
-  <hr>
-  
-  #extend("footer")
+
+  <hr />
+
+  #extend("layout/footer")
 </html>
