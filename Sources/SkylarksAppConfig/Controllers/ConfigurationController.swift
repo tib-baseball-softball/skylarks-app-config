@@ -49,8 +49,10 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func create(req: Request) async throws -> Response {
-        let config = try req.content.decode(ConfigurationDTO.self).toModel()
-
+        let config = try req.content.decode(ConfigurationFormData.self).toModel()
+        
+        config.updatedAt = Date()
+        
         try await config.save(on: req.db)
         return req.redirect(to: "/configs")
     }

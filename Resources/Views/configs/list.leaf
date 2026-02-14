@@ -1,11 +1,13 @@
-#extend("layout"):
-    #export("main"):
-        <h1>Available Configurations</h1>
-        <ul>
-          #for(config in configs):
-              <li>#(config.description)</li>
-          #endfor
-        </ul>
-        <a href="/configs/form">Create new</a>
-    #endexport
-#endextend
+#extend("layout"): #export("main"):
+<div class="configs-list">
+  <h1>Available Configurations</h1>
+  <ul class="configs-grid">
+    #for(config in configs):
+    <li>
+      <article class="card">#(config.description)</article>
+    </li>
+    #endfor
+  </ul>
+  <a class="btn primary" href="/configs/form">Create new</a>
+</div>
+#endexport #endextend

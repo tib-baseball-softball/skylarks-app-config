@@ -2,3 +2,5 @@
 @import "layout/navbar.css";
 @import "variables.css";
 @import "root.css";
+
+@import "partials/configs.css"

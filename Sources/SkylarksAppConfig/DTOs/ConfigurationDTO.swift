@@ -17,11 +17,9 @@ struct ConfigurationDTO: Content {
         return model
     }
     
-    struct APIUrls: Codable {
+    struct APIUrls: Content {
         var bsmURL: String
         var cmsURL: String
         var dpURL: String
     }
 }
-
-

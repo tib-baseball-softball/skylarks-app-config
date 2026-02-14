@@ -8,8 +8,10 @@ struct CreateFirstSchema: AsyncMigration {
             .create()
 
         try await database.schema("configurations")
+            .id()
             .unique(on: "name")
             .field("name", .string, .required)
+            .field("updated_at", .datetime, .required)
             .field("description", .string)
             .field("context", contextEnumType, .required)
             .field("bsm_url", .string, .required)

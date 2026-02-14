@@ -37,8 +37,10 @@ final class Configuration: Model, @unchecked Sendable {
 
     init() {}
 
-    init(id: UUID? = nil, updatedAt: Date, description: String, bsmURL: String, cmsURL: String, dpURL: String, featureFlags: [FeatureFlag]) {
+    init(id: UUID? = nil, name: String, context: ApplicationContext, updatedAt: Date, description: String, bsmURL: String, cmsURL: String, dpURL: String, featureFlags: [FeatureFlag]) {
         self.id = id
+        self.name = name
+        self.applicationContext = context
         self.updatedAt = updatedAt
         self.description = description
         self.cmsURL = cmsURL
