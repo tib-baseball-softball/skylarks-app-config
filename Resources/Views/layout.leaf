@@ -9,6 +9,7 @@
       href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css"
     />
     <link rel="stylesheet" href="/css/main.css" />
+    <script type="module" src="/js/customElements/dialog.js" defer></script>
 
     <title>#(title)</title>
   </head>
@@ -24,9 +25,10 @@
         #import("main")
       </main>
     </div>
+
+    <hr />
+
+    #extend("layout/footer")
+    #extend("templates")
   </body>
-
-  <hr />
-
-  #extend("layout/footer")
 </html>

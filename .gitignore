@@ -287,3 +287,4 @@ db.sqlite
 !.env.example
 default.profraw
 node_modules
+ref

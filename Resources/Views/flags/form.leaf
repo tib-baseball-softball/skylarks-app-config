@@ -1,15 +1,13 @@
-<button id="feature-flag-form-trigger" class="btn primary">Create new</button>
-
-<dialog id="feature-flag-form-dialog" closedby="any">
-  <form id="feature-flag-form" method="dialog">
-    <label for="input-name">Name</label>
-    <input id="input-name" type="text" name="name" required />
+<form-dialog>
+  <span slot="trigger-content">Create new</span>
+  
+  <form slot="dialog-content" id="feature-flag-form" method="post" action="/flags/create">
+    <label for="input-key">Name</label>
+    <input id="input-key" type="text" name="key" required />
 
     <label for="input-description">Description</label>
     <input id="input-description" type="text" name="description" />
-    
+
     <button class="btn primary" type="submit">Submit</button>
   </form>
-</dialog>
-
-<script type="module" src="/js/flagForm.js"></script>
+</form-dialog>

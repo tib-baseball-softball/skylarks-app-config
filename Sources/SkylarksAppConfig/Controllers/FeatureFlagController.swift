@@ -6,6 +6,7 @@ struct FeatureFlagController: RouteCollection {
         let flags = routes.grouped("flags")
         
         flags.get(use: self.index)
+        flags.post("create", use: self.create)
         
         let api = routes.grouped("api")
 
@@ -32,5 +33,13 @@ struct FeatureFlagController: RouteCollection {
     @Sendable
     func apiList(req: Request) async throws -> [FeatureFlagDTO] {
         return try await FeatureFlag.query(on: req.db).all().map { $0.toDTO() }
+    }
+    
+    @Sendable
+    func create(req: Request) async throws -> Response {
+        let config = try req.content.decode(FeatureFlagDTO.self).toModel()
+        
+        try await config.save(on: req.db)
+        return req.redirect(to: "/flags")
     }
 }
