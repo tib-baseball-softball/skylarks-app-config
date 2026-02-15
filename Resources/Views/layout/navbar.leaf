@@ -8,6 +8,10 @@
       <li>
         <a class="nav-link" href="/configs">Configurations</a>
       </li>
+      
+      <li>
+        <a class="nav-link" href="/flags">Feature Flags</a>
+      </li>
 
       <li>
         <a class="nav-link" href="/logs">Logs</a>

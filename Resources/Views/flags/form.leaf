@@ -1,0 +1,7 @@
+<form method="dialog">
+  <label for="input-name">Name</label>
+  <input id="input-name" type="text" name="name" required />
+
+  <label for="input-description">Description</label>
+  <input id="input-description" type="text" name="description" />
+</form>

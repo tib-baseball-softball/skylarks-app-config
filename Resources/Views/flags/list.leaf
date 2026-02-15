@@ -1,0 +1,22 @@
+#extend("layout"): #export("main"):
+<div class="flags-table">
+  <h1>Feature Flags</h1>
+  
+  <table>
+    <thead>
+      <th>Key</th>
+      <th>Description</th>
+    </thead>
+    
+    <tbody>
+      #for(flag in flags):
+        <tr>
+          <td>#(flag.key)</td>
+          <td>#(flag.description)</td>
+        </tr>
+      #endfor
+    </tbody>
+  </table>
+    
+</div>
+#endexport #endextend
