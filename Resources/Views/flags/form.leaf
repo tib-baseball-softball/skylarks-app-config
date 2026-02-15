@@ -1,7 +1,15 @@
-<form method="dialog">
-  <label for="input-name">Name</label>
-  <input id="input-name" type="text" name="name" required />
+<button id="feature-flag-form-trigger" class="btn primary">Create new</button>
 
-  <label for="input-description">Description</label>
-  <input id="input-description" type="text" name="description" />
-</form>
+<dialog id="feature-flag-form-dialog" closedby="any">
+  <form id="feature-flag-form" method="dialog">
+    <label for="input-name">Name</label>
+    <input id="input-name" type="text" name="name" required />
+
+    <label for="input-description">Description</label>
+    <input id="input-description" type="text" name="description" />
+    
+    <button class="btn primary" type="submit">Submit</button>
+  </form>
+</dialog>
+
+<script type="module" src="/js/flagForm.js"></script>

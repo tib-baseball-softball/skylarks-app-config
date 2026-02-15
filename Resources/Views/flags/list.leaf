@@ -15,8 +15,14 @@
           <td>#(flag.description)</td>
         </tr>
       #endfor
+      
+      #if(flags.isEmpty):
+          <tr>There are no feature flags yet.</tr>
+      #endif
     </tbody>
   </table>
+  
+  #extend("flags/form")
     
 </div>
 #endexport #endextend
