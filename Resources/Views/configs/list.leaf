@@ -4,7 +4,8 @@
   <ul class="configs-grid">
     #for(config in configs):
     <li>
-      <article class="card">#(config.description)</article>
+      <article class="card">#(config.description), #(config.name)</article>
+      <a href="/configs/#(config.id)/formUpdate">Edit</a>
     </li>
     #endfor
   </ul>

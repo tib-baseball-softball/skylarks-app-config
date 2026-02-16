@@ -1,30 +1,69 @@
-#extend("layout"):
-  #export("main"):
-    <h1>Create new Configuration</h1>
-    <form action="/configs/create" method="POST">
-      
-      <label for="input-name">Name</label>
-      <input id="input-name" type="text" name="name" required>
-      
-      <label for="input-description">Description</label>
-      <input id="input-description" type="text" name="description">
-        
-      <label for="context">Application Context</label>
-      <select id="context" name="context">
-        <option value="production" selected>Production</option>
-        <option value="staging">Staging</option>
-      </select>
-        
-      <label for="input-bsm_url">BSM Base URL</label>
-      <input id="input-bsm_url" type="url" name="bsmURL" required>
+#extend("layout"): 
+  #export("main"): 
   
-      <label for="input-cms_url">TYPO3 CMS Base URL</label>
-      <input id="input-cms_url" type="url" name="cmsURL" required>
-        
-      <label for="input-dp_url">Diamond Planner Base URL</label>
-      <input id="input-dp_url" type="url" name="dpURL" required>
-        
-      <button type="submit" class="btn primary">Submit</button>
-    </form>
-  #endexport
+  #if(config):
+  <h1>Update Configuration #(config.name)</h1>
+  #else:
+  <h1>Create new Configuration</h1>
+  #endif
+  
+  #if(config):
+  <form action="/configs/#(config.id)/update" method="POST">
+  #else:
+  <form action="/configs/create" method="POST">
+  #endif
+    
+    <label for="input-name">Name</label>
+    <input
+      id="input-name"
+      type="text"
+      name="name"
+      required
+      value="#(config.name)"
+    />
+  
+    <label for="input-description">Description</label>
+    <input
+      id="input-description"
+      type="text"
+      name="description"
+      value="#(config.description)"
+    />
+  
+    <label for="context">Application Context</label>
+    <select id="context" name="context">
+      <option value="production" selected>Production</option>
+      <option value="staging">Staging</option>
+    </select>
+  
+    <label for="input-bsm_url">BSM Base URL</label>
+    <input
+      id="input-bsm_url"
+      type="url"
+      name="bsmURL"
+      required
+      value="#(config.apiURLS.bsmURL)"
+    />
+  
+    <label for="input-cms_url">TYPO3 CMS Base URL</label>
+    <input
+      id="input-cms_url"
+      type="url"
+      name="cmsURL"
+      required
+      value="#(config.apiURLS.cmsURL)"
+    />
+  
+    <label for="input-dp_url">Diamond Planner Base URL</label>
+    <input
+      id="input-dp_url"
+      type="url"
+      name="dpURL"
+      required
+      value="#(config.apiURLS.dpURL)"
+    />
+  
+    <button type="submit" class="btn primary">Submit</button>
+  </form>
+  #endexport 
 #endextend
