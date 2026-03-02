@@ -1,0 +1,28 @@
+<article class="card">
+  <dl class="config-card-grid">
+    <dt>
+      <strong>Application Context</strong>
+    </dt>
+    <dd>
+      <code>#(config.applicationContext)</code>
+    </dd>
+
+    <dt>
+      <strong>Name</strong>
+    </dt>
+    <dd>
+      #(config.name)
+    </dd>
+
+    <dt>
+      <strong>Description</strong>
+    </dt>
+    <dd>
+      #(config.description)
+    </dd>
+  </dl>
+
+  <div class="edit-container">
+    <a href="/configs/#(config.id)/formUpdate">Edit</a>
+  </div>
+</article>
