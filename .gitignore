@@ -288,3 +288,4 @@ db.sqlite
 default.profraw
 node_modules
 ref
+.vscode

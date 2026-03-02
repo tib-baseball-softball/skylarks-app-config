@@ -1,34 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css"
-    />
-    <link rel="stylesheet" href="/css/main.css" />
-    <script type="module" src="/js/customElements/dialog.js" defer></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>#(title)</title>
-  </head>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css" />
+  <link rel="icon" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <script type="module" src="/js/customElements/dialog.js" defer></script>
 
-  <body>
-    #extend("layout/header")
+  <title>#(title)</title>
+</head>
 
-    <hr />
+<body>
+  #extend("layout/header")
 
-    <div class="nav-grid">
-      #extend("layout/navbar")
-      <main>
-        #import("main")
-      </main>
-    </div>
+  <hr />
 
-    <hr />
+  <div class="nav-grid">
+    #extend("layout/navbar")
+    <main>
+      #import("main")
+    </main>
+  </div>
 
-    #extend("layout/footer")
-    #extend("templates")
-  </body>
+  <hr />
+
+  #extend("layout/footer")
+  #extend("templates")
+</body>
+
 </html>
