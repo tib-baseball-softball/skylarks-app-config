@@ -1,4 +1,9 @@
 :root {
   --container-max-width: unset;
   --font-size-large: 1.1rem;
+
+  --color-navbar: light-dark(
+    oklch(from var(--color-body-bg) calc(l - 0.03) c h),
+    oklch(from var(--color-secondary) calc(l - 0.12) c h)
+  );
 }

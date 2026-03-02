@@ -1,6 +1,8 @@
 @import "layout/base.css";
+@import "layout/header.css";
 @import "layout/navbar.css";
 @import "variables.css";
 @import "root.css";
 
-@import "partials/configs.css"
+@import "partials/configs.css";
+@import "partials/footer.css";

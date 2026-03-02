@@ -1,6 +1,7 @@
 .nav-grid {
   display: grid;
   grid-template-columns: 1fr;
+  height: 100%;
 
   @media (min-width: 32rem) {
     grid-template-columns: 1fr 4fr;

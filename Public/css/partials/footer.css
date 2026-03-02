@@ -1,0 +1,10 @@
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block-start: 4rem;
+  
+  .flags {
+    font-size: var(--font-size-xlarge);
+  }
+}

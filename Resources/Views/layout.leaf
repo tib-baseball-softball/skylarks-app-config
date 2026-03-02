@@ -1,35 +1,32 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css"
+    />
+    <link rel="icon" href="/assets/favicon.svg" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <script type="module" src="/js/customElements/dialog.js" defer></script>
 
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/berlin-skylarks-theme@latest/theme.min.css" />
-  <link rel="icon" href="/assets/favicon.svg" />
-  <link rel="stylesheet" href="/css/main.css" />
-  <script type="module" src="/js/customElements/dialog.js" defer></script>
+    <title>#(title)</title>
+  </head>
 
-  <title>#(title)</title>
-</head>
+  <body>
+    #extend("layout/header")
 
-<body>
-  #extend("layout/header")
+    <div class="nav-grid">
+      #extend("layout/navbar")
 
-  <hr />
+      <div>
+        <main>#import("main")</main>
+        #extend("layout/footer")
+      </div>
+    </div>
 
-  <div class="nav-grid">
-    #extend("layout/navbar")
-    <main>
-      #import("main")
-    </main>
-  </div>
-
-  <hr />
-
-  #extend("layout/footer")
-  #extend("templates")
-</body>
-
+    #extend("templates")
+  </body>
 </html>
