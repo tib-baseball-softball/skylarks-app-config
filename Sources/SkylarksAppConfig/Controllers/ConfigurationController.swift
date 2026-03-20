@@ -9,6 +9,7 @@ struct ConfigurationController: RouteCollection {
         configs.get("form", use: self.createForm)
         configs.post("create", use: self.create)
         configs.group(":id") { config in
+            config.get(use: self.show)
             config.get("formUpdate", use: self.updateForm)
             config.post("update", use: self.update)
             config.delete(use: self.delete)
@@ -34,6 +35,17 @@ struct ConfigurationController: RouteCollection {
                 title: "Configurations List",
                 configs: configs
             ))
+    }
+
+    @Sendable
+    func show(req: Request) async throws -> View {
+        guard let config = try await Configuration.find(req.parameters.get("id"), on: req.db) else {
+            throw Abort(.notFound)
+        }
+        return try await req.view.render(
+            "configs/show",
+            ["config": config.toDTO()]
+        )
     }
 
     @Sendable

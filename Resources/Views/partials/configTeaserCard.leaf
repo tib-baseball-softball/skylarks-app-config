@@ -23,6 +23,7 @@
   </dl>
 
   <div class="edit-container">
+    <a href="/configs/#(config.id)">Details</a>
     <a href="/configs/#(config.id)/formUpdate">Edit</a>
   </div>
 </article>
