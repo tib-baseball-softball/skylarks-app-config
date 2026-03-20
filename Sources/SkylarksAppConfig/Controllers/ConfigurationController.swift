@@ -22,7 +22,7 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func index(req: Request) async throws -> View {
-        let configs = try await Configuration.query(on: req.db).all().map { $0.toDTO() }
+        let configs = try await Configuration.query(on: req.db).with(\.$featureFlags).all().map { $0.toDTO() }
 
         struct ConfigsResponse: Encodable {
             var title: String
@@ -50,7 +50,7 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func apiList(req: Request) async throws -> [ConfigurationDTO] {
-        return try await Configuration.query(on: req.db).all().map { $0.toDTO() }
+        return try await Configuration.query(on: req.db).with(\.$featureFlags).all().map { $0.toDTO() }
     }
 
     @Sendable

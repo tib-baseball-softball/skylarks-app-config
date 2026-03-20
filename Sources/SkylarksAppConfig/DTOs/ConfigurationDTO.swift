@@ -8,6 +8,7 @@ struct ConfigurationDTO: Content {
     var applicationContext: ApplicationContext
     var description: String?
     var apiURLS: APIUrls
+    var featureFlags: [FlagWithStatusDTO]?
 
     func toModel() -> Configuration {
         let model = Configuration()
@@ -20,6 +21,7 @@ struct ConfigurationDTO: Content {
         model.bsmURL = self.apiURLS.bsmURL
         model.cmsURL = self.apiURLS.cmsURL
         model.dpURL = self.apiURLS.dpURL
+        model.featureFlags = self.featureFlags?.map({ $0.flag.toModel() }) ?? []
         return model
     }
 
@@ -28,4 +30,9 @@ struct ConfigurationDTO: Content {
         var cmsURL: String
         var dpURL: String
     }
+}
+
+struct FlagWithStatusDTO: Content {
+    var flag: FeatureFlagDTO
+    var isEnabled: Bool
 }

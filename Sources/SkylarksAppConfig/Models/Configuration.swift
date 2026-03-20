@@ -61,7 +61,10 @@ final class Configuration: Model, @unchecked Sendable {
             applicationContext: self.applicationContext,
             description: self.$description.wrappedValue,
             apiURLS: ConfigurationDTO.APIUrls(
-                bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL)
+                bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL),
+            // featureFlags: self.featureFlags.map({
+            //     FlagWithStatusDTO(flag: $0.toDTO(), isEnabled: true)
+            // })
         )
     }
 }
