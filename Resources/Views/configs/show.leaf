@@ -1,0 +1,49 @@
+#extend("layout"): #export("main"):
+<div class="configs-list">
+  <h1>Configuration <code>#(config.name)</code></h1>
+
+  <article class="card">
+    <dl class="config-card-grid">
+      <dt>
+        <strong>Application Context</strong>
+      </dt>
+      <dd>
+        <code>#(config.applicationContext)</code>
+      </dd>
+
+      <dt>
+        <strong>Name</strong>
+      </dt>
+      <dd>#(config.name)</dd>
+
+      <dt>
+        <strong>Description</strong>
+      </dt>
+      <dd>#(config.description)</dd>
+      
+      <dt>
+        <strong>BSM Base URL</strong>
+      </dt>
+      <dd>
+        <a href="#(config.apiURLS.bsmURL)" target="_blank">#(config.apiURLS.bsmURL)</a>
+      </dd>
+      
+      <dt>
+        <strong>TYPO3 CMS Base URL</strong>
+      </dt>
+      <dd>
+        <a href="#(config.apiURLS.cmsURL)" target="_blank">#(config.apiURLS.cmsURL)</a>
+      </dd>
+      
+      <dt>
+        <strong>Diamond Planner Base URL</strong>
+      </dt>
+      <dd>
+        <a href="#(config.apiURLS.dpURL)" target="_blank">#(config.apiURLS.dpURL)</a>
+      </dd>
+    </dl>
+  </article>
+
+  <a href="/configs/#(config.id)/formUpdate">Edit</a>
+</div>
+#endexport #endextend
