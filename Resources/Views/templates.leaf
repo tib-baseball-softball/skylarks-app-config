@@ -1,13 +1,1 @@
-<template id="dialog-template">
-  <button id="dialog-trigger" class="btn primary">
-    <slot name="trigger-content">Trigger Modal</slot>
-  </button>
 
-  <dialog id="form-dialog" closedby="any">
-    <div class="dialog-title-container">
-      <button id="dialog-close-button" type="button" class="btn">Close</button>
-    </div>
-    
-    <slot name="dialog-content">CONTENT</slot>
-  </dialog>
-</template>

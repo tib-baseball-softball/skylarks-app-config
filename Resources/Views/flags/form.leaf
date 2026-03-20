@@ -1,7 +1,10 @@
-<form-dialog>
-  <span slot="trigger-content">Create new</span>
+<button commandfor="flags-dialog" command="show-modal" class="btn primary">
+  Create new
+</button>
+
+<dialog id="flags-dialog" closedby="any">
   
-  <form slot="dialog-content" id="feature-flag-form" method="post" action="/flags/create">
+  <form method="post" action="/flags/create">
     <label for="input-key">Name</label>
     <input id="input-key" type="text" name="key" required />
 
@@ -10,4 +13,4 @@
 
     <button class="btn primary" type="submit">Submit</button>
   </form>
-</form-dialog>
+</dialog>

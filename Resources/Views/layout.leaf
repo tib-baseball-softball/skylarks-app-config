@@ -10,7 +10,6 @@
     />
     <link rel="icon" href="/assets/favicon.svg" />
     <link rel="stylesheet" href="/css/main.css" />
-    <script type="module" src="/js/customElements/dialog.js" defer></script>
 
     <title>#(title)</title>
   </head>
