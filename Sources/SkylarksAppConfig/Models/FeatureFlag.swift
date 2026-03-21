@@ -26,6 +26,6 @@ final class FeatureFlag: Model, @unchecked Sendable {
     }
 
     func toDTO() -> FeatureFlagDTO {
-        .init(key: self.key, description: self.description)
+        .init(id: self.id, key: self.key, description: self.description)
     }
 }
