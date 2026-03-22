@@ -13,12 +13,42 @@
   }
   
   .card {
-    margin-bottom: 0;
+    margin-bottom: var(--spacing-base-half);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--spacing-base-half);
+  }
+  
+  .flags-card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-base);
+    align-items: center;
+    overflow-x: scroll;
+  }
+  
+  .flag-desc {
+    grid-column: span 2 / span 2;
+  }
+  
+  .flag-enabled-box {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-base-half);
+  }
+  
+  .icon-enabled {
+    color: var(--color-success);
+  }
+  
+  .icon-disabled {
+    color: var(--color-danger);
+  }
+  
+  .flag-toggle {
+    place-self: end;
   }
   
   .config-card-grid {
@@ -32,5 +62,9 @@
     justify-content: flex-end;
     padding-inline: var(--spacing-base);
     gap: var(--spacing-base)
+  }
+  
+  .detail-edit-link {
+    padding-block: var(--spacing-base-half);
   }
 }

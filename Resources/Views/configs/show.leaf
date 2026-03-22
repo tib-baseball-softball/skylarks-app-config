@@ -1,6 +1,6 @@
 #extend("layout"): #export("main"):
 <div class="configs-list">
-  <h1>Configuration <code>#(config.name)</code></h1>
+  <h1>Configuration "#(config.name)"</h1>
 
   <article class="card">
     <dl class="config-card-grid">
@@ -20,30 +20,85 @@
         <strong>Description</strong>
       </dt>
       <dd>#(config.description)</dd>
-      
+
       <dt>
         <strong>BSM Base URL</strong>
       </dt>
       <dd>
-        <a href="#(config.apiURLS.bsmURL)" target="_blank">#(config.apiURLS.bsmURL)</a>
+        <a href="#(config.apiURLS.bsmURL)" target="_blank"
+          >#(config.apiURLS.bsmURL)</a
+        >
       </dd>
-      
+
       <dt>
         <strong>TYPO3 CMS Base URL</strong>
       </dt>
       <dd>
-        <a href="#(config.apiURLS.cmsURL)" target="_blank">#(config.apiURLS.cmsURL)</a>
+        <a href="#(config.apiURLS.cmsURL)" target="_blank"
+          >#(config.apiURLS.cmsURL)</a
+        >
       </dd>
-      
+
       <dt>
         <strong>Diamond Planner Base URL</strong>
       </dt>
       <dd>
-        <a href="#(config.apiURLS.dpURL)" target="_blank">#(config.apiURLS.dpURL)</a>
+        <a href="#(config.apiURLS.dpURL)" target="_blank"
+          >#(config.apiURLS.dpURL)</a
+        >
       </dd>
     </dl>
   </article>
 
-  <a href="/configs/#(config.id)/formUpdate">Edit</a>
+  <article class="card flags-card">
+    #for(flagRel in config.flagRelations):
+    <div><code>#(flagRel.flag.key)</code></div>
+    <div class="flag-desc">#(flagRel.flag.description)</div>
+    <div class="flag-enabled-box">
+      #if(flagRel.enabled == true):
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon-enabled"
+      >
+        <path
+          d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+        />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+      <span>On</span>
+      #else:
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="icon-disabled"
+      >
+        <path
+          d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+        />
+        <line x1="8" x2="16" y1="12" y2="12" />
+      </svg>
+      <span>Off</span>
+      #endif
+    </div>
+    <button class="btn flag-toggle">Toggle</button>
+    #endfor
+  </article>
+
+  <a class="detail-edit-link" href="/configs/#(config.id)/formUpdate">Edit</a>
 </div>
 #endexport #endextend
