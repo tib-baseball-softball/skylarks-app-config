@@ -1,7 +1,7 @@
 import Fluent
+import Foundation
 
 import struct Foundation.UUID
-import Foundation
 
 /// Property wrappers interact poorly with `Sendable` checking, causing a warning for the `@ID` property
 /// It is recommended you write your model with sendability checking on and then suppress the warning
@@ -35,6 +35,9 @@ final class Configuration: Model, @unchecked Sendable {
 
     @Siblings(through: ConfigurationFeatureFlag.self, from: \.$config, to: \.$flag)
     var featureFlags: [FeatureFlag]
+    
+    @Children(for: \.$config)
+    var flagRelations: [ConfigurationFeatureFlag]
 
     init() {}
 
@@ -54,6 +57,7 @@ final class Configuration: Model, @unchecked Sendable {
         self.featureFlags = featureFlags
     }
 
+    /// MARK: needs expanded sibling relations
     func toDTO() -> ConfigurationDTO {
         .init(
             id: self.id,
@@ -63,9 +67,9 @@ final class Configuration: Model, @unchecked Sendable {
             description: self.$description.wrappedValue,
             apiURLS: ConfigurationDTO.APIUrls(
                 bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL),
-            // featureFlags: self.featureFlags.map({
-            //     FlagWithStatusDTO(flag: $0.toDTO(), isEnabled: true)
-            // })
+            flagRelations: self.flagRelations.map({
+                FlagWithStatusDTO(flag: $0.flag.toDTO(), enabled: $0.enabled)
+            })
         )
     }
 }

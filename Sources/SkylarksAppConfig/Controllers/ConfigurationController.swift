@@ -22,7 +22,9 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func index(req: Request) async throws -> View {
-        let configs = try await Configuration.query(on: req.db).with(\.$featureFlags).all().map { $0.toDTO() }
+        let configs = try await Configuration.query(on: req.db).with(\.$flagRelations){ $0.with(\.$flag)}.all().map {
+            $0.toDTO()
+        }
 
         struct ConfigsResponse: Encodable {
             var title: String
@@ -42,6 +44,13 @@ struct ConfigurationController: RouteCollection {
         guard let config = try await Configuration.find(req.parameters.get("id"), on: req.db) else {
             throw Abort(.notFound)
         }
+        
+        // TODO: ugly
+        let rels = try await config.$flagRelations.get(on: req.db)
+        for rel in rels {
+            let _ = try await rel.$flag.get(on: req.db)
+        }
+        
         return try await req.view.render(
             "configs/show",
             ["config": config.toDTO()]
@@ -50,7 +59,9 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func apiList(req: Request) async throws -> [ConfigurationDTO] {
-        return try await Configuration.query(on: req.db).with(\.$featureFlags).all().map { $0.toDTO() }
+        return try await Configuration.query(on: req.db).with(\.$flagRelations){ $0.with(\.$flag)}.all().map {
+            $0.toDTO()
+        }
     }
 
     @Sendable
@@ -71,6 +82,11 @@ struct ConfigurationController: RouteCollection {
         guard let config = try await Configuration.find(req.parameters.get("id"), on: req.db)
         else {
             throw Abort(.notFound)
+        }
+        
+        let rels = try await config.$flagRelations.get(on: req.db)
+        for rel in rels {
+            let _ = try await rel.$flag.get(on: req.db)
         }
 
         return try await req.view.render(
@@ -113,7 +129,7 @@ struct ConfigurationController: RouteCollection {
         config.dpURL = input.dpURL
 
         try await config.update(on: req.db)
-        return req.redirect(to: "/configs")
+        return req.redirect(to: "/configs/\(id)")
     }
 
     @Sendable

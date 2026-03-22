@@ -62,14 +62,18 @@ struct FeatureFlagController: RouteCollection {
             
             return Response(status: .ok)
         } else {
-            guard let config = try await Configuration.find(payload.configID, on: req.db) else {
+            guard let _ = try await Configuration.find(payload.configID, on: req.db) else {
                 throw Abort(.notFound, reason: "Configuration not found")
             }
-            guard let flag = try await FeatureFlag.find(payload.flagID, on: req.db) else {
+            guard let _ = try await FeatureFlag.find(payload.flagID, on: req.db) else {
                 throw Abort(.notFound, reason: "Flag not found")
             }
         
-            let newModel = try ConfigurationFeatureFlag(config: config, flag: flag, enabled: payload.enabled)
+            let newModel = ConfigurationFeatureFlag()
+            newModel.$flag.id = payload.flagID
+            newModel.$config.id = payload.configID
+            newModel.enabled = payload.enabled
+            
             try await newModel.save(on: req.db)
             
             return Response(status: .created)
