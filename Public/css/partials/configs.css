@@ -47,8 +47,11 @@
     color: var(--color-danger);
   }
   
-  .flag-toggle {
+  .flag-relation-form {
     place-self: end;
+    margin: 0;
+    padding: 0;
+    border: none;
   }
   
   .config-card-grid {

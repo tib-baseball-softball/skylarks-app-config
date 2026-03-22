@@ -95,7 +95,16 @@
       <span>Off</span>
       #endif
     </div>
-    <button class="btn flag-toggle">Toggle</button>
+    <form method="POST" action="/flag-relations/upsert" class="flag-relation-form">
+      <input type="hidden" name="flagID" value="#(flagRel.flag.id)" />
+      <input type="hidden" name="configID" value="#(config.id)" />
+      #if(flagRel.enabled):
+      <input type="hidden" name="enabled" value="false" />
+      #else:
+      <input type="hidden" name="enabled" value="true" />
+      #endif
+      <button type="submit" class="btn flag-toggle">Toggle</button>
+    </form>
     #endfor
   </article>
 

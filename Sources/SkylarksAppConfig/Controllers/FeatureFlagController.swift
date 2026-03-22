@@ -12,8 +12,11 @@ struct FeatureFlagController: RouteCollection {
 
         api.group("flags") { flags in
             flags.get(use: self.apiList)
-            flags.post("upsert", use: self.upsertFlagRelation)
         }
+        
+        let flagRels = routes.grouped("flag-relations")
+        flagRels.post("upsert", use: self.upsertFlagRelation)
+
     }
 
     @Sendable
@@ -46,7 +49,6 @@ struct FeatureFlagController: RouteCollection {
         return req.redirect(to: "/flags")
     }
 
-    // TODO: authentication?
     @Sendable
     func upsertFlagRelation(req: Request) async throws -> Response {
         let payload = try req.content.decode(FeatureFlagUsagePayload.self)
@@ -59,24 +61,24 @@ struct FeatureFlagController: RouteCollection {
         if let existingModel {
             existingModel.enabled = payload.enabled
             try await existingModel.save(on: req.db)
-            
-            return Response(status: .ok)
+
+            return req.redirect(to: "/configs/\(payload.configID)")
         } else {
-            guard let _ = try await Configuration.find(payload.configID, on: req.db) else {
+            guard (try await Configuration.find(payload.configID, on: req.db)) != nil else {
                 throw Abort(.notFound, reason: "Configuration not found")
             }
-            guard let _ = try await FeatureFlag.find(payload.flagID, on: req.db) else {
+            guard (try await FeatureFlag.find(payload.flagID, on: req.db)) != nil else {
                 throw Abort(.notFound, reason: "Flag not found")
             }
-        
+
             let newModel = ConfigurationFeatureFlag()
             newModel.$flag.id = payload.flagID
             newModel.$config.id = payload.configID
             newModel.enabled = payload.enabled
-            
+
             try await newModel.save(on: req.db)
-            
-            return Response(status: .created)
+
+            return req.redirect(to: "/configs/\(payload.configID)")
         }
     }
 }

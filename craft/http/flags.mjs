@@ -1,4 +1,4 @@
-const response = await fetch("http://localhost:8080/api/flags/upsert", {
+const response = await fetch("http://localhost:8080/api/flag-relations/upsert", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
