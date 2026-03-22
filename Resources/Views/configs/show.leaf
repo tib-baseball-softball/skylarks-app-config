@@ -54,9 +54,21 @@
 
   <div class="link-box">
     <a class="btn" href="/configs/#(config.id)/formUpdate">Edit</a>
-    <form method="POST" action="/configs/#(config.id)/delete" class="reset-form">
-      <button class="btn" type="submit">Delete</button>
-    </form>
+    <button
+      commandfor="delete-config-dialog"
+      command="show-modal"
+      class="btn"
+      type="button"
+    >
+      Delete
+    </button>
   </div>
+
+  <dialog id="delete-config-dialog" closedby="any">
+    <form method="POST" action="/configs/#(config.id)/delete">
+      <p>Confirm deleting configuration "#(config.name)?"</p>
+      <button class="btn delete-button" type="submit">Delete</button>
+    </form>
+  </dialog>
 </div>
 #endexport #endextend
