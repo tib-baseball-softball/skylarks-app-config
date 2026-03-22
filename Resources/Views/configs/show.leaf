@@ -52,6 +52,11 @@
 
   #extend("partials/configFlagGridItem")
 
-  <a class="detail-edit-link" href="/configs/#(config.id)/formUpdate">Edit</a>
+  <div class="link-box">
+    <a class="btn" href="/configs/#(config.id)/formUpdate">Edit</a>
+    <form method="POST" action="/configs/#(config.id)/delete" class="reset-form">
+      <button class="btn" type="submit">Delete</button>
+    </form>
+  </div>
 </div>
 #endexport #endextend

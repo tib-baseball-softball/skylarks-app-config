@@ -49,9 +49,6 @@
   
   .flag-relation-form {
     place-self: end;
-    margin: 0;
-    padding: 0;
-    border: none;
   }
   
   .config-card-grid {
@@ -67,7 +64,9 @@
     gap: var(--spacing-base)
   }
   
-  .detail-edit-link {
-    padding-block: var(--spacing-base-half);
+  .link-box {
+    display: flex;
+    gap: var(--spacing-base);
+    align-items: center;
   }
 }

@@ -12,7 +12,7 @@ struct ConfigurationController: RouteCollection {
             config.get(use: self.show)
             config.get("formUpdate", use: self.updateForm)
             config.post("update", use: self.update)
-            config.delete(use: self.delete)
+            config.post("delete", use: self.delete)
         }
 
         let api = routes.grouped("api")
@@ -22,7 +22,9 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func index(req: Request) async throws -> View {
-        let configs = try await Configuration.query(on: req.db).with(\.$flagRelations){ $0.with(\.$flag)}.all().map {
+        let configs = try await Configuration.query(on: req.db).with(\.$flagRelations) {
+            $0.with(\.$flag)
+        }.all().map {
             $0.toDTO()
         }
 
@@ -44,18 +46,18 @@ struct ConfigurationController: RouteCollection {
         guard let config = try await Configuration.find(req.parameters.get("id"), on: req.db) else {
             throw Abort(.notFound)
         }
-        
+
         struct ConfigShowResponse: Encodable {
             var title: String
             var config: ConfigurationDTO
         }
-        
+
         // TODO: ugly
         let rels = try await config.$flagRelations.get(on: req.db)
         for rel in rels {
             let _ = try await rel.$flag.get(on: req.db)
         }
-        
+
         return try await req.view.render(
             "configs/show",
             ConfigShowResponse(
@@ -67,9 +69,10 @@ struct ConfigurationController: RouteCollection {
 
     @Sendable
     func apiList(req: Request) async throws -> [ConfigurationDTO] {
-        return try await Configuration.query(on: req.db).with(\.$flagRelations){ $0.with(\.$flag)}.all().map {
-            $0.toDTO()
-        }
+        return try await Configuration.query(on: req.db).with(\.$flagRelations) { $0.with(\.$flag) }
+            .all().map {
+                $0.toDTO()
+            }
     }
 
     @Sendable
@@ -91,7 +94,7 @@ struct ConfigurationController: RouteCollection {
         else {
             throw Abort(.notFound)
         }
-        
+
         let rels = try await config.$flagRelations.get(on: req.db)
         for rel in rels {
             let _ = try await rel.$flag.get(on: req.db)
@@ -141,13 +144,13 @@ struct ConfigurationController: RouteCollection {
     }
 
     @Sendable
-    func delete(req: Request) async throws -> HTTPStatus {
+    func delete(req: Request) async throws -> Response {
         guard let config = try await Configuration.find(req.parameters.get("id"), on: req.db)
         else {
             throw Abort(.notFound)
         }
 
         try await config.delete(on: req.db)
-        return .noContent
+        return req.redirect(to: "/configs")
     }
 }
