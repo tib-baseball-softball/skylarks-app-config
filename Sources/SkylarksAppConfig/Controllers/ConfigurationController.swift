@@ -26,14 +26,14 @@ struct ConfigurationController: RouteCollection {
             $0.toDTO()
         }
 
-        struct ConfigsResponse: Encodable {
+        struct ConfigsListResponse: Encodable {
             var title: String
             var configs: [ConfigurationDTO]
         }
 
         return try await req.view.render(
             "configs/list",
-            ConfigsResponse(
+            ConfigsListResponse(
                 title: "Configurations List",
                 configs: configs
             ))
@@ -45,6 +45,11 @@ struct ConfigurationController: RouteCollection {
             throw Abort(.notFound)
         }
         
+        struct ConfigShowResponse: Encodable {
+            var title: String
+            var config: ConfigurationDTO
+        }
+        
         // TODO: ugly
         let rels = try await config.$flagRelations.get(on: req.db)
         for rel in rels {
@@ -53,7 +58,10 @@ struct ConfigurationController: RouteCollection {
         
         return try await req.view.render(
             "configs/show",
-            ["config": config.toDTO()]
+            ConfigShowResponse(
+                title: "Configuration \"\(config.name)\"",
+                config: config.toDTO()
+            )
         )
     }
 
