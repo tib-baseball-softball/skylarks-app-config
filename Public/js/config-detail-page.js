@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams({
     excludedConfigID: configID,
   });
-  const url = `/api/flags?${params.toString()}`;
+  const url = `/api/v1/flags?${params.toString()}`;
   const response = await fetch(url);
   if (!response.ok) {
     console.error("error loading unassigned feature flags");

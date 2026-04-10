@@ -21,8 +21,9 @@ struct FeatureFlagController: RouteCollection {
         }
 
         let api = routes.grouped("api")
+        let v1 = api.grouped("v1")
 
-        api.group("flags") { flags in
+        v1.group("flags") { flags in
             flags.get(use: self.apiList)
         }
 

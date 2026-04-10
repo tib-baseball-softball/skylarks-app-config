@@ -24,8 +24,9 @@ struct ConfigurationController: RouteCollection {
         }
 
         let api = routes.grouped("api")
+        let v1 = api.grouped("v1")
 
-        api.get("configs", use: self.apiList)
+        v1.get("configs", use: self.apiList)
     }
 
     /// Renders a web view listing all configurations.
