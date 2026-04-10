@@ -8,6 +8,9 @@ struct FeatureFlagController: RouteCollection {
 
         flags.get(use: self.index)
         flags.post("create", use: self.create)
+        flags.group(":id") { flag in
+            flag.post("delete", use: self.delete)
+        }
 
         let api = routes.grouped("api")
 
@@ -105,5 +108,16 @@ struct FeatureFlagController: RouteCollection {
 
             return req.redirect(to: "/configs/\(payload.configID)")
         }
+    }
+    
+    @Sendable
+    func delete(req: Request) async throws -> Response {
+        guard let config = try await FeatureFlag.find(req.parameters.get("id"), on: req.db)
+        else {
+            throw Abort(.notFound)
+        }
+
+        try await config.delete(on: req.db)
+        return req.redirect(to: "/flags")
     }
 }

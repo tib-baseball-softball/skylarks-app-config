@@ -6,6 +6,7 @@
     <thead>
       <th>Key</th>
       <th>Description</th>
+      <th>Actions</th>
     </thead>
     
     <tbody>
@@ -13,6 +14,23 @@
         <tr>
           <td>#(flag.key)</td>
           <td>#(flag.description)</td>
+          <td>
+            <button
+              commandfor="delete-flag-dialog-#(flag.id)"
+              command="show-modal"
+              class="btn"
+              type="button"
+            >
+              Delete
+            </button>
+            
+            <dialog id="delete-flag-dialog-#(flag.id)" closedby="any">
+              <form method="POST" action="/flags/#(flag.id)/delete">
+                <p>Confirm deleting feature flag "#(flag.key)?"</p>
+                <button class="btn delete-button" type="submit">Delete</button>
+              </form>
+            </dialog>
+          </td>
         </tr>
       #endfor
       
