@@ -2,7 +2,7 @@
 <div class="configs-list">
   <h1>Configuration "#(config.name)"</h1>
 
-  <article class="card">
+  <article class="card" id="config-main-container" data-config="#(config.id)">
     <dl class="config-card-grid">
       <dt>
         <strong>Application Context</strong>
