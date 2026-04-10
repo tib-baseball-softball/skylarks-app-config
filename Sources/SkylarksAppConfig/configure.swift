@@ -21,6 +21,8 @@ public func configure(_ app: Application) async throws {
     
     // cors middleware should come before default error middleware using `at: .beginning`
     app.middleware.use(cors, at: .beginning)
+    
+    app.middleware.use(CSPMiddleware())
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
