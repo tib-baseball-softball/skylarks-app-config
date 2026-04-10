@@ -19,7 +19,11 @@ To execute tests, use the following command:
 swift test
 ```
 
-### See more
+## Security Considerations
+
+This project does not include any authentication or other access control. That layer is expected to be provided at the web server level (Authentik server + Traefik request configuration)
+
+### Vapor Documentation
 
 - [Vapor Website](https://vapor.codes)
 - [Vapor Documentation](https://docs.vapor.codes)
