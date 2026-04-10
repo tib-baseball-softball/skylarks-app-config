@@ -1,4 +1,5 @@
 import Fluent
+import FluentSQL
 import Vapor
 
 struct FeatureFlagController: RouteCollection {
@@ -13,7 +14,7 @@ struct FeatureFlagController: RouteCollection {
         api.group("flags") { flags in
             flags.get(use: self.apiList)
         }
-        
+
         let flagRels = routes.grouped("flag-relations")
         flagRels.post("upsert", use: self.upsertFlagRelation)
 
@@ -38,7 +39,31 @@ struct FeatureFlagController: RouteCollection {
 
     @Sendable
     func apiList(req: Request) async throws -> [FeatureFlagDTO] {
-        return try await FeatureFlag.query(on: req.db).all().map { $0.toDTO() }
+        let excludedConfigID: UUID?
+
+        do {
+            excludedConfigID = try req.query.get(UUID.self, at: ["excludedConfigID"])
+        } catch {
+            excludedConfigID = nil
+        }
+
+        guard let sql = req.db as? any SQLDatabase else {
+            throw Abort(.internalServerError, reason: "A server error occurred.")
+        }
+
+        // after several hours of trying to find the IS NULL syntax in the query builder equivalent I settled for the inflexible raw variant.
+        if let exID = excludedConfigID {
+            return try await sql.raw(
+                """
+                SELECT *
+                FROM feature_flags AS flags
+                LEFT JOIN 'config+flag' AS rel ON rel.flag_id = flags.id
+                WHERE rel.config_id != \(bind: exID) OR rel.config_id IS NULL;
+                """
+            ).all(decodingFluent: FeatureFlag.self).map { $0.toDTO() }
+        } else {
+            return try await FeatureFlag.query(on: req.db).all().map { $0.toDTO() }
+        }
     }
 
     @Sendable
@@ -52,7 +77,7 @@ struct FeatureFlagController: RouteCollection {
     @Sendable
     func upsertFlagRelation(req: Request) async throws -> Response {
         let payload = try req.content.decode(FeatureFlagUsagePayload.self)
-        
+
         let existingModel = try await ConfigurationFeatureFlag.query(on: req.db)
             .filter(\.$config.$id == payload.configID)
             .filter(\.$flag.$id == payload.flagID)
