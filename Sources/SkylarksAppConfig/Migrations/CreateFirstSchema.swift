@@ -5,6 +5,7 @@ struct CreateFirstSchema: AsyncMigration {
         let contextEnumType = try await database.enum("application_context")
             .case("production")
             .case("staging")
+            .case("development")
             .create()
 
         try await database.schema("configurations")

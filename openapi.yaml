@@ -71,6 +71,7 @@ components:
       enum:
         - production
         - staging
+        - development
       description: "The environment or context in which the application is running."
 
     FeatureFlagDTO:

@@ -7,4 +7,6 @@ enum ApplicationContext: String, Codable {
     case production
     /// The staging environment, used for pre-release testing.
     case staging
+    /// Local development environment.
+    case development
 }

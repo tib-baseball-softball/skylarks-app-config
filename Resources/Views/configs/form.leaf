@@ -34,6 +34,7 @@
     <select id="context" name="context">
       <option value="production" selected>Production</option>
       <option value="staging">Staging</option>
+      <option value="development">Development</option>
     </select>
   
     <label for="input-bsm_url">BSM Base URL</label>
