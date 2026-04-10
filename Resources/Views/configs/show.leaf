@@ -50,6 +50,7 @@
     </dl>
   </article>
 
+  <h2>Feature Flags for this Configuration</h2>
   #extend("partials/configFlagGridItem")
 
   <div class="link-box">
