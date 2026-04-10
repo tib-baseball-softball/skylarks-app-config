@@ -29,8 +29,14 @@ struct CreateFirstSchema: AsyncMigration {
         try await database.schema("config+flag")
             .id()
             .unique(on: "config_id", "flag_id")
-            .field("config_id", .uuid, .required, .references("configurations", "id"))
-            .field("flag_id", .uuid, .required, .references("feature_flags", "id"))
+            .field(
+                "config_id", .uuid, .required,
+                .references("configurations", "id", onDelete: .cascade, onUpdate: .cascade)
+            )
+            .field(
+                "flag_id", .uuid, .required,
+                .references("feature_flags", "id", onDelete: .cascade, onUpdate: .cascade)
+            )
             .field("enabled", .bool, .required)
             .create()
     }
