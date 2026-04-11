@@ -1,1 +1,1 @@
-npx redocly build-docs openapi.yaml --disable-google-font
+npx redocly build-docs openapi.yaml  --output Public/static/api-docs.html --disable-google-font
