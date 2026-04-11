@@ -94,15 +94,28 @@ struct ConfigurationController: RouteCollection {
 
     /// Provides an API list of all configurations with their associated feature flags.
     ///
+    /// Can be filtered by application context via GET parameter.
+    ///
     /// - Parameter req: The incoming `Request`.
     /// - Returns: An array of `ConfigurationDTO` objects.
     /// - Throws: An error if database access fails.
     @Sendable
     func apiList(req: Request) async throws -> [ConfigurationDTO] {
-        return try await Configuration.query(on: req.db).with(\.$flagRelations) { $0.with(\.$flag) }
-            .all().map {
-                $0.toDTO()
-            }
+        let query = Configuration.query(on: req.db).with(\.$flagRelations) { $0.with(\.$flag) }
+        
+        var context: ApplicationContext?
+        
+        do {
+            context = try req.query.get(ApplicationContext.self, at: ["context"])
+        } catch {
+            context = nil
+        }
+        
+        if let ctx = context {
+            query.filter(\.$applicationContext == ctx)
+        }
+
+        return try await query.all().map { $0.toDTO() }
     }
 
     /// Renders the form for creating a new configuration.
