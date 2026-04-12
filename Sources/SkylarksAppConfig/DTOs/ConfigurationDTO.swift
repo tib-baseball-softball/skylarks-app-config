@@ -3,8 +3,7 @@ import Vapor
 
 /// A data transfer object representing a complete system configuration.
 ///
-/// `ConfigurationDTO` is used for sending and receiving detailed configuration data,
-/// including service URLs and associated feature flags.
+/// `ConfigurationDTO` is used for sending and receiving detailed configuration data in internal leaf routes.
 struct ConfigurationDTO: Content {
     /// The unique identifier for the configuration.
     var id: UUID?
@@ -19,7 +18,7 @@ struct ConfigurationDTO: Content {
     /// The set of service URLs for this configuration.
     var apiURLS: APIUrls
     /// An optional list of feature flags and their enabled status for this configuration.
-    var flagRelations: [String: FlagWithStatusDTO]?
+    var flagRelations: [FlagWithStatusDTO]?
 
     /// Converts the DTO into its corresponding `Configuration` database model.
     ///
@@ -37,7 +36,7 @@ struct ConfigurationDTO: Content {
         model.dpURL = self.apiURLS.dpURL
         if let flags = self.flagRelations {
             model.flagRelations = flags.lazy.map {
-                let rel = $0.value.toModel()
+                let rel = $0.toModel()
                 rel.config = model
 
                 return rel
@@ -46,16 +45,37 @@ struct ConfigurationDTO: Content {
 
         return model
     }
+}
 
-    /// A nested DTO containing various service URLs.
-    struct APIUrls: Content {
-        /// The URL for the BSM service.
-        var bsmURL: String
-        /// The URL for the CMS service.
-        var cmsURL: String
-        /// The URL for the DP service.
-        var dpURL: String
-    }
+/// A data transfer object representing a complete system configuration.
+///
+/// `ConfigurationAPIDTO` is used for API responses, providing feature flags as a map.
+/// NB: There is no `toModel()` method as receiving data this way is not planned.
+struct ConfigurationAPIDTO: Content {
+    /// The unique identifier for the configuration.
+    var id: UUID?
+    /// The last update timestamp for the configuration.
+    var updatedAt: Date
+    /// The name of the configuration.
+    var name: String
+    /// The application context this configuration applies to.
+    var applicationContext: ApplicationContext
+    /// An optional description of the configuration.
+    var description: String?
+    /// The set of service URLs for this configuration.
+    var apiURLS: APIUrls
+    /// An optional hashmap of feature flags and their enabled status for this configuration.
+    var flagRelations: [String: FlagWithStatusDTO]?
+}
+
+/// A nested DTO containing various service URLs.
+struct APIUrls: Content {
+    /// The URL for the BSM service.
+    var bsmURL: String
+    /// The URL for the CMS service.
+    var cmsURL: String
+    /// The URL for the DP service.
+    var dpURL: String
 }
 
 /// A data transfer object representing a feature flag along with its status for a single configuration.

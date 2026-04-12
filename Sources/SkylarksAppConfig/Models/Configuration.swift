@@ -92,7 +92,25 @@ final class Configuration: Model, @unchecked Sendable {
             name: self.name,
             applicationContext: self.applicationContext,
             description: self.$description.wrappedValue,
-            apiURLS: ConfigurationDTO.APIUrls(
+            apiURLS: APIUrls(
+                bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL),
+            flagRelations: self.flagRelations.lazy.map({
+                    FlagWithStatusDTO(flag: $0.flag.toDTO(), enabled: $0.enabled)
+                })
+        )
+    }
+    
+    /// Converts the `Configuration` model into a data transfer object (DTO).
+    ///
+    /// - Returns: A `ConfigurationDTO` representing the current configuration state.
+    func toAPIDTO() -> ConfigurationAPIDTO {
+        .init(
+            id: self.id,
+            updatedAt: self.updatedAt,
+            name: self.name,
+            applicationContext: self.applicationContext,
+            description: self.$description.wrappedValue,
+            apiURLS: APIUrls(
                 bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL),
             flagRelations: Dictionary(
                 uniqueKeysWithValues: self.flagRelations.lazy.map({

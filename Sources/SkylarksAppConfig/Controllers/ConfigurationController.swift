@@ -103,7 +103,7 @@ struct ConfigurationController: RouteCollection {
     /// - Returns: An array of `ConfigurationDTO` objects.
     /// - Throws: An error if database access fails.
     @Sendable
-    func apiList(req: Request) async throws -> [ConfigurationDTO] {
+    func apiList(req: Request) async throws -> [ConfigurationAPIDTO] {
         let query = Configuration.query(on: req.db).with(\.$flagRelations) { $0.with(\.$flag) }
         
         var context: ApplicationContext?
@@ -118,7 +118,7 @@ struct ConfigurationController: RouteCollection {
             query.filter(\.$applicationContext == ctx)
         }
 
-        return try await query.all().map { $0.toDTO() }
+        return try await query.all().map { $0.toAPIDTO() }
     }
 
     /// Renders the form for creating a new configuration.
