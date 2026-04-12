@@ -1,5 +1,7 @@
 services:
   app:
+    env_file:
+      - .env
     image: obnoxieux/skylarks-app-config:latest
     restart: unless-stopped
     networks:
