@@ -21,7 +21,7 @@ swift test
 
 ## Security Considerations
 
-This project does not include any authentication or other access control. That layer is expected to be provided at the web server level (Authentik server + Traefik request configuration)
+This project only provides HTTP Basic authentication. That layer is later expected to be provided at the web server level (Authentik server + Traefik request configuration) or via an OAuth connection.
 
 ### Vapor Documentation
 

@@ -19,7 +19,7 @@ struct ConfigurationDTO: Content {
     /// The set of service URLs for this configuration.
     var apiURLS: APIUrls
     /// An optional list of feature flags and their enabled status for this configuration.
-    var flagRelations: [FlagWithStatusDTO]?
+    var flagRelations: [String: FlagWithStatusDTO]?
 
     /// Converts the DTO into its corresponding `Configuration` database model.
     ///
@@ -36,8 +36,8 @@ struct ConfigurationDTO: Content {
         model.cmsURL = self.apiURLS.cmsURL
         model.dpURL = self.apiURLS.dpURL
         if let flags = self.flagRelations {
-            model.flagRelations = flags.map {
-                let rel = $0.toModel()
+            model.flagRelations = flags.lazy.map {
+                let rel = $0.value.toModel()
                 rel.config = model
 
                 return rel

@@ -94,9 +94,10 @@ final class Configuration: Model, @unchecked Sendable {
             description: self.$description.wrappedValue,
             apiURLS: ConfigurationDTO.APIUrls(
                 bsmURL: self.bsmURL, cmsURL: self.cmsURL, dpURL: self.dpURL),
-            flagRelations: self.flagRelations.map({
-                FlagWithStatusDTO(flag: $0.flag.toDTO(), enabled: $0.enabled)
-            })
+            flagRelations: Dictionary(
+                uniqueKeysWithValues: self.flagRelations.lazy.map({
+                    ($0.flag.key, FlagWithStatusDTO(flag: $0.flag.toDTO(), enabled: $0.enabled))
+                }))
         )
     }
 }
