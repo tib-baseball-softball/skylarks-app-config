@@ -12,13 +12,18 @@ struct FeatureFlagController: RouteCollection {
     /// - Parameter routes: The `RoutesBuilder` to register routes with.
     /// - Throws: An error if route registration fails.
     func boot(routes: any RoutesBuilder) throws {
-        let flags = routes.grouped("flags")
+        let protected = routes.grouped(UserAuthenticator())
+            .grouped(User.guardMiddleware())
+        let flags = protected.grouped("flags")
 
         flags.get(use: self.index)
         flags.post("create", use: self.create)
         flags.group(":id") { flag in
             flag.post("delete", use: self.delete)
         }
+        
+        let flagRels = protected.grouped("flag-relations")
+        flagRels.post("upsert", use: self.upsertFlagRelation)
 
         let api = routes.grouped("api")
         let v1 = api.grouped("v1")
@@ -26,10 +31,6 @@ struct FeatureFlagController: RouteCollection {
         v1.group("flags") { flags in
             flags.get(use: self.apiList)
         }
-
-        let flagRels = routes.grouped("flag-relations")
-        flagRels.post("upsert", use: self.upsertFlagRelation)
-
     }
 
     /// Renders a web view listing all feature flags.

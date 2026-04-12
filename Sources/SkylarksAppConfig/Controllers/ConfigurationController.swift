@@ -11,7 +11,10 @@ struct ConfigurationController: RouteCollection {
     /// - Parameter routes: The `RoutesBuilder` to register routes with.
     /// - Throws: An error if route registration fails.
     func boot(routes: any RoutesBuilder) throws {
-        let configs = routes.grouped("configs")
+        let protected = routes.grouped(UserAuthenticator())
+            .grouped(User.guardMiddleware())
+            
+        let configs = protected.grouped("configs")
 
         configs.get(use: self.index)
         configs.get("form", use: self.createForm)

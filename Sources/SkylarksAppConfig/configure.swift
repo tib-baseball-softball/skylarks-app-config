@@ -23,6 +23,7 @@ public func configure(_ app: Application) async throws {
     app.middleware.use(cors, at: .beginning)
     
     app.middleware.use(CSPMiddleware())
+    app.middleware.use(BasicAuthPromptMiddleware(), at: .beginning)
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
