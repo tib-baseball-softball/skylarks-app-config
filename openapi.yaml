@@ -1,4 +1,4 @@
-openapi: "3.1.0"
+openapi: "3.1.2"
 info:
   title: "Skylarks App Config"
   version: "1.0.0"
@@ -155,8 +155,8 @@ components:
               type: string
               example: "https://dp.berlinskylarks.de"
         flagRelations:
-          type:
-            - array
+          type: 
+            - object
             - "null"
-          items:
-            $ref: "#/components/schemas/FlagWithStatusDTO"
+          additionalProperties:
+            $ref: '#/components/schemas/FlagWithStatusDTO'
